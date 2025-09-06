@@ -6,14 +6,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Portfolio Jérémie Oscar</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f4f4f4; color: #333; text-align: center; padding: 20px; }
-    h1 { color: #2c3e50; }
-    p { font-size: 1.1em; }
-    a { color: #2980b9; text-decoration: none; font-weight: bold; }
-    a:hover { text-decoration: underline; }.container {
-      background: white; max-width: 600px; margin: auto; padding: 20px;
-      border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    body {
+      font-family: Arial, sans-serif; background: #f4f4f4; color: #333;
+      text-align: center; padding: 20px; overflow-x: hidden;
     }
+    h1 {
+      color: #2c3e50;
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: fadeSlideDown 1s forwards;
+    }
+    p, a {
+      font-size: 1.1em;
+      opacity: 0;
+      transform: translateX(20px);
+      animation: fadeSlideLeft 0.8s forwards;
+      animation-delay: 0.8s;
+    }
+    p:nth-of-type(2) { animation-delay: 1s; }
+    p:nth-of-type(3) { animation-delay: 1.2s; }
+    p:nth-of-type(4) { animation-delay: 1.4s; }
+    a:nth-of-type(1) { animation-delay: 1.6s; }
+    p:nth-of-type(5) { animation-delay: 1.8s; }
+    a:nth-of-type(2) { animation-delay: 2s; }
+    p:nth-of-type(6) { animation-delay: 2.2s; }
+    a:nth-of-type(3) { animation-delay: 2.4s; }
     iframe {
       width: 100%;
       max-width: 360px;
@@ -21,6 +38,27 @@
       border-radius: 10px;
       margin-top: 20px;
       border: none;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+      animation-delay: 2.6s;
+      transform-origin: center center;
+      animation-name: fadeInRotate;
+    }.container {
+      background: white; max-width: 600px; margin: auto; padding: 20px;
+      border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    @keyframes fadeSlideDown {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeSlideLeft {
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    @keyframes fadeInRotate {
+      0% { opacity: 0; transform: rotate(-15deg); }
+      100% { opacity: 1; transform: rotate(0deg); }
     }
   </style>
   <script>
