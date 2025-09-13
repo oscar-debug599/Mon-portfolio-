@@ -122,18 +122,18 @@
 <div class="chat-container">
   <div class="chat-header">OscarSoundz Bot 🎧</div>
   <div class="chat-body" id="chat">
-    <div class="message bot">Salut ! Pose-moi une question sur OscarSoundz 🔥</div>
+    <div class="message bot">Salut ! Pose-moi une question sur Jérémie Oscar🔥</div>
   </div>
 
   <div class="suggestions">
-    <button onclick="sendSuggestion('Qui est OscarSoundz ?')">Qui est OscarSoundz ?</button>
+    <button onclick="sendSuggestion('Qui est Jérémie Oscar ?')">Qui est Jérémie Oscar ?</button>
     <button onclick="sendSuggestion('Où écouter ta musique ?')">Où écouter ta musique ?</button>
     <button onclick="sendSuggestion('Quels styles tu fais ?')">Styles musicaux ?</button>
     <button onclick="sendSuggestion('Comment te contacter ?')">Contact ?</button>
   </div>
 
   <div class="chat-footer">
-    <input type="text" id="userInput" placeholder="Écris un message..."/>
+    <input type="text" id="userInput" placeholder="Que voulez-vous savoir de Jérémie..."/>
     <button onclick="handleSend()">Envoyer</button>
   </div>
 </div>
@@ -167,14 +167,16 @@
     let response = "Je n’ai pas compris 🤔 Essaie une autre question.";
 
     if (message.includes("qui")) {
-      response = "OscarSoundz est un artiste, beatmaker et développeur passionné 💻🎶.";
-    } else if (message.includes("écouter") || message.includes("musique")) {
-      response = "Retrouve mes sons sur YouTube, Audiomack, et Spotify 🎧.";
+      response = "Jérémie Oscar ou OscarSoundz(son nom d'artiste) est un artiste musicien, beatmaker et informaticien passionné 💻🎶.";
+    } else if (message.includes("écouter") || message.includes("musique") || message.includes("prod") || message.includes("beats") || message.includes("instrumental") || message.includes ("prods")){
+      response = "Retrouve mes sons sur YouTube, et sur mon site (vous y êtes déjà😊)🎧. Pour les autres informations, tu peux me contacter personnellement.";
     } else if (message.includes("style") || message.includes("genre")) {
-      response = "Je fais du rap, lo-fi, afrobeat et des prods inspirées ✨.";
+      response = "Je fais du hip-hop, R&B, afrobeat, afro rumba et des prods inspirées ✨.";
     } else if (message.includes("contact")) {
-      response = "Contacte-moi via Instagram @oscarsoundz ou mail oscarsoundz@gmail.com 📩.";
-    }
+      response = "Contacte-moi via Instagram ou Facebook📩. Les liens sont sur la page principale.";
+    } else if (message.includes ("église") || message.includes ("pries") || message.includes ("prie")) {
+      reponse = "Je prie et sers Dieu à la Maison de Miséricorde.";
+   } 
 
     setTimeout(() => addMessage("bot", response), 500);
   }
