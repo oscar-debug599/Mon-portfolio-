@@ -1,0 +1,124 @@
+<html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assistant Jérémie Oscar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e0e7ff;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    .chat-container {
+      max-width: 600px;
+      margin: 20px auto;
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 10px;
+    }
+    .message {
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 10px;
+      max-width: 80%;
+    }
+    .user {
+      background: #d1e7dd;
+      align-self: flex-end;
+    }
+    .bot {
+      background: #f8d7da;
+      align-self: flex-start;
+    }
+    form {
+      display: flex;
+    }
+    input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 5px 0 0 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 15px;
+      border: none;
+      background: #2c3e50;
+      color: white;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>Assistant Jérémie Oscar</h2>
+  </header>
+  <div class="chat-container">
+    <div class="messages" id="messages"></div>
+    <form id="chat-form">
+      <input type="text" id="user-input" placeholder="Pose une question…" autocomplete="off" required />
+      <button type="submit">Envoyer</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("chat-form");
+    const input = document.getElementById("user-input");
+    const messages = document.getElementById("messages");
+
+    const responses = {
+      "qui es-tu": "Je suis l'assistant virtuel de Jérémie Oscar, beatmaker et chrétien engagé.",
+      "youtube": "Tu peux découvrir ses productions sur sa chaîne YouTube : https://www.youtube.com/@J%C3%A9r%C3%A9mieOscar-j7k",
+      "musique": "Il produit de la musique urbaine et de l’afrobeat.",
+      "contact": "Tu peux le contacter via Instagram ou Facebook.",
+      "bonjour": "Bonjour ! Comment puis-je t'aider ?",
+      "salut": "Salut ! Tu veux en savoir plus sur Jérémie Oscar ?",
+      "prods": "Tu peux écouter ses prods ici : https://www.youtube.com/@J%C3%A9r%C3%A9mieOscar-j7k",
+      "instagram": "Voici son Instagram : https://www.instagram.com/jeremie_oscar",
+    };
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const userText = input.value.trim().toLowerCase();
+      addMessage(userText, "user");
+      input.value = "";
+
+      let reply = "Désolé, je ne connais pas la réponse à ça.";
+      for (const key in responses) {
+        if (userText.includes(key)) {
+          reply = responses[key];
+          break;
+        }
+      }
+      setTimeout(() => addMessage(reply, "bot"), 500);
+    });
+
+    function addMessage(text, type) {
+      const msg = document.createElement("div");
+      msg.className = "message " + type;
+      msg.innerText = text;
+      messages.appendChild(msg);
+      messages.scrollTop = messages.scrollHeight;
+    }
+  </script>
+</body>
+</html>
