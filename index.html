@@ -6,68 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Portfolio Jérémie Oscar</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f4f4f4; color: #333; text-align: center; padding: 20px; }
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; color: #333; }
+    .container { max-width: 800px; margin: 40px auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
     h1 { color: #2c3e50; }
-    p { font-size: 1.1em; }
+    p, a { font-size: 1.1em; }
     a { color: #2980b9; text-decoration: none; font-weight: bold; }
     a:hover { text-decoration: underline; }
-    .container { background: white; max-width: 600px; margin: auto; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    iframe { width: 100%; height: 315px; border: none; border-radius: 10px; }
+
+    iframe { width: 100%; height: 300px; border: none; border-radius: 10px; margin-top: 20px; }
 
     /* Chatbot styles */
-    #chatbot {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 300px;
-      max-height: 400px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      display: flex;
-      flex-direction: column;
-      font-family: Arial, sans-serif;
-      overflow: hidden;
-    }
-    #chat-header {
-      background: #2980b9;
-      color: white;
-      padding: 10px;
-      font-weight: bold;
-    }
-    #chat-messages {
-      flex: 1;
-      padding: 10px;
-      overflow-y: auto;
-      text-align: left;
-      font-size: 0.9em;
-    }
-    #chat-input {
-      border-top: 1px solid #ddd;
-      display: flex;
-    }
-    #chat-input input {
-      flex: 1;
-      border: none;
-      padding: 10px;
-      font-size: 1em;
-      border-radius: 0 0 0 10px;
-      outline: none;
-    }
-    #chat-input button {
-      background: #2980b9;
-      border: none;
-      color: white;
-      padding: 0 15px;
-      cursor: pointer;
-      border-radius: 0 0 10px 0;
-      font-weight: bold;
-    }
-    .message {
-      margin-bottom: 10px;
-    }
-    .user { text-align: right; color: #2980b9; }
-    .bot { text-align: left; color: #333; }
+    #chatbot { position: fixed; bottom: 0; right: 20px; width: 300px; background: #fff; border: 1px solid #ccc; border-radius: 10px 10px 0 0; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    #chatbot-header { background: #2c3e50; color: white; padding: 10px; border-radius: 10px 10px 0 0; font-weight: bold; text-align: center; }
+    #chat-log { height: 200px; overflow-y: auto; padding: 10px; font-size: 0.9em; }
+   #chat-log div { margin-bottom: 8px; }
+    #user-input { display: flex; border-top: 1px solid #ccc; }
+    #user-input input { flex: 1; border: none; padding: 10px; }
+    #user-input button { border: none; padding: 10px; background: #2980b9; color: white; cursor: pointer; }
+
   </style>
 </head>
 <body>
@@ -81,73 +37,48 @@
     <p><a href="https://www.facebook.com/jeremie.oscar.52" target="_blank">Mon profil Facebook</a></p>
     <p>Ou encore sur Instagram:</p>
     <p><a href="https://www.instagram.com/jeremie_oscar?igsh=MXN1YTRoaXJvcjEycQ==" target="_blank">Mon compte Instagram</a></p>
-    <p>Vous pouvez écouter, là maintenant, une de mes prods Afrobeat:</p>
-    <iframe
-      src="https://www.youtube.com/embed/bw_OYgzaji4"
-      title="YouTube Video Player"
-      allowfullscreen>
-    </iframe>
+    <p>Vous pouvez écouter , là maintenant, une de mes prods Afrobeat:</p>
+    <iframe src="https://www.youtube.com/embed/bw_OYgzaji4" title="Prod Afrobeat"></iframe>
   </div>
 
+  <!-- Chatbot -->
   <div id="chatbot">
-    <div id="chat-header">Chat avec Jérémie</div>
-    <div id="chat-messages"></div>
-    <form id="chat-form" autocomplete="off" onsubmit="return false;">
-      <div id="chat-input">
-        <input type="text" id="user-input" placeholder="Pose-moi une question..." />
-        <button type="submit">Envoyer</button>
-      </div>
-    </form>
+    <div id="chatbot-header">Assistant Jérémie</div>
+    <div id="chat-log"></div>
+    <div id="user-input">
+      <input type="text" id="user-msg" placeholder="Écris ici..." />
+      <button onclick="sendMessage()">Envoyer</button>
+    </div>
   </div>
 
   <script>
-    const chatMessages = document.getElementById('chat-messages');
-    const chatForm = document.getElementById('chat-form');
-    const userInput = document.getElementById('user-input');
+    const chatLog = document.getElementById("chat-log");
+    const input = document.getElementById("user-msg");
 
-    function appendMessage(text, sender) {
-      const msgDiv = document.createElement('div');
-      msgDiv.classList.add('message', sender);
-      msgDiv.textContent = text;
-      chatMessages.appendChild(msgDiv);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
+    function sendMessage() {
+      const msg = input.value.trim();
+      if (msg === "") return;
+
+      const userDiv = document.createElement("div");
+      userDiv.textContent = "👤 " + msg;
+      chatLog.appendChild(userDiv);
+
+      const botDiv = document.createElement("div");
+      botDiv.textContent = "🤖 " + getBotResponse(msg);
+      chatLog.appendChild(botDiv);
+
+      chatLog.scrollTop = chatLog.scrollHeight;
+      input.value = "";
     }
 
     function getBotResponse(message) {
       message = message.toLowerCase();
-
-      if (message.includes('youtube')) {
-        return "Tu peux visiter ma chaîne YouTube ici : https://www.youtube.com/@J%C3%A9r%C3%A9mieOscar-j7k";
-      }
-      if (message.includes('prod') || message.includes('musique')) {
-        return "J'ai plusieurs productions urbaines, écoute-les sur ma chaîne YouTube ou demande-moi directement!";
-      }
-      if (message.includes('chrétien')) {
-        return "Je suis chrétien et ma foi guide ma vie et ma musique.";
-      }
-      if (message.includes('contact')) {
-        return "Tu peux me contacter via Facebook : https://www.facebook.com/jeremie.oscar.52";
-      }
-      if (message.includes('instagram')) {
-        return "Mon Instagram : https://www.instagram.com/jeremie_oscar?igsh=MXN1YTRoaXJvcjEycQ==";
-      }
-      if (message.includes('bonjour') || message.includes('salut')) {
-        return "Salut! Comment puis-je t'aider aujourd'hui ?";
-      }
-      return "Désolé, je ne comprends pas. Pose-moi une autre question sur moi ou ma musique!";
+      if (message.includes("bonjour")) return "Salut ! Comment puis-je t’aider ?";
+      if (message.includes("youtube")) return "Voici le lien vers ma chaîne : youtube.com/@JérémieOscar-j7k";
+      if (message.includes("prod")) return "Tu peux écouter mes productions sur YouTube, n’hésite pas à t’abonner !";
+      if (message.includes("chrétien")) return "Oui, je suis chrétien et mes valeurs influencent aussi ma musique.";
+      return "Je suis encore en apprentissage 😅. Pose une autre question !";
     }
-
-    chatForm.addEventListener('submit', () => {
-      const userText = userInput.value.trim();
-      if (!userText) return;
-     appendMessage(userText, 'user');
-      userInput.value = '';
-
-      setTimeout(() => {
-        const botReply = getBotResponse(userText);
-        appendMessage(botReply, 'bot');
-      }, 500);
-    });
   </script>
 </body>
 </html>
