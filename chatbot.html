@@ -2,95 +2,116 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Assistant OscarSoundz</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chatbot OscarSoundz</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f0f0f0;
       margin: 0;
-      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background-color: #0b0b0b;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
 
-    .chatbot {
+    .chat-container {
+      background-color: #1e1e1e;
+      width: 100%;
       max-width: 400px;
-      margin: 50px auto;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      height: 90vh;
+      border-radius: 12px;
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
     }
 
-    .chatbot-header {
-      background: #1e88e5;
-      color: #fff;
+    .chat-header {
+      background-color: #121212;
       padding: 16px;
+      color: #fff;
       text-align: center;
-      font-size: 18px;
+      font-weight: bold;
+      border-bottom: 1px solid #333;
     }
 
-    .chatbot-body {
-      flex-grow: 1;
+    .chat-body {
+      flex: 1;
       padding: 16px;
       overflow-y: auto;
-      height: 300px;
-    }
-
-    .chatbot-footer {
       display: flex;
-      padding: 10px;
-      background: #f5f5f5;
-      border-top: 1px solid #ddd;
-    }
-
-    .chatbot-footer input {
-      flex: 1;
-      padding: 8px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-    }
-    .chatbot-footer button {
-      margin-left: 10px;
-      padding: 8px 12px;
-      background: #1e88e5;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .message {
-      margin-bottom: 12px;
-    }
-
-    .user {
-      text-align: right;
-      color: #333;
+      max-width: 80%;
+      padding: 10px 14px;
+      border-radius: 18px;
+      font-size: 15px;
+      line-height: 1.4;
+      display: inline-block;
+      word-wrap: break-word;
     }
 
     .bot {
-      text-align: left;
-      color: #1e88e5;
+      align-self: flex-start;
+      background-color: #3a3a3a;
+      color: #fff;
+      border-bottom-left-radius: 0;
+    }
+
+    .user {
+      align-self: flex-end;
+      background-color: #007bff;
+      color: #fff;
+      border-bottom-right-radius: 0;
+    }
+
+    .chat-footer {
+      display: flex;
+      border-top: 1px solid #333;
+      padding: 10px;
+      background-color: #121212;
+    }
+
+    .chat-footer input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 20px;
+      border: none;
+      background-color: #2a2a2a;
+      color: white;
+      outline: none;
+    }
+
+    .chat-footer button {
+      background: none;
+      border: none;
+      color: #007bff;
+      font-weight: bold;
+      margin-left: 10px;
+      cursor: pointer;
     }
 
     .suggestions {
+      padding: 8px;
+      background-color: #1a1a1a;
+      border-top: 1px solid #333;
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      padding: 10px;
-      background: #fafafa;
+      gap: 6px;
       justify-content: center;
-      border-top: 1px solid #ddd;
     }
 
     .suggestions button {
+      background-color: #333;
+      color: #ccc;
       padding: 6px 12px;
       border: none;
-      border-radius: 20px;
-      background: #e3f2fd;
+      border-radius: 16px;
       cursor: pointer;
       font-size: 13px;
     }
@@ -98,33 +119,32 @@
 </head>
 <body>
 
-<div class="chatbot">
-  <div class="chatbot-header">Assistant OscarSoundz</div>
-  <div class="chatbot-body" id="chat">
-    <div class="message bot">Salut 👋 Je suis le bot OscarSoundz ! Pose-moi une question.</div>
+<div class="chat-container">
+  <div class="chat-header">OscarSoundz Bot 🎧</div>
+  <div class="chat-body" id="chat">
+    <div class="message bot">Salut ! Pose-moi une question sur OscarSoundz 🔥</div>
   </div>
 
   <div class="suggestions">
     <button onclick="sendSuggestion('Qui est OscarSoundz ?')">Qui est OscarSoundz ?</button>
     <button onclick="sendSuggestion('Où écouter ta musique ?')">Où écouter ta musique ?</button>
-    <button onclick="sendSuggestion('Quels styles de musique fais-tu ?')">Styles musicaux ?</button>
+    <button onclick="sendSuggestion('Quels styles tu fais ?')">Styles musicaux ?</button>
     <button onclick="sendSuggestion('Comment te contacter ?')">Contact ?</button>
-    <button onclick="sendSuggestion('C’est quoi ton objectif musical ?')">Objectif musical ?</button>
   </div>
 
-  <div class="chatbot-footer">
-    <input type="text" id="userInput" placeholder="Pose ta question...">
+  <div class="chat-footer">
+    <input type="text" id="userInput" placeholder="Écris un message..."/>
     <button onclick="handleSend()">Envoyer</button>
   </div>
 </div>
 
 <script>
-  const chat = document.getElementById('chat');
-  const input = document.getElementById('userInput');
+  const chat = document.getElementById("chat");
+  const input = document.getElementById("userInput");
 
   function addMessage(sender, text) {
-    const msg = document.createElement('div');
-    msg.className = 'message ' + sender;
+    const msg = document.createElement("div");
+    msg.className = `message ${sender}`;
     msg.innerText = text;
     chat.appendChild(msg);
     chat.scrollTop = chat.scrollHeight;
@@ -132,10 +152,10 @@
 
   function handleSend() {
     const text = input.value.trim();
-    if (text === '') return;
-    addMessage('user', text);
+    if (!text) return;
+    addMessage("user", text);
     respond(text.toLowerCase());
-    input.value = '';
+    input.value = "";
   }
 
   function sendSuggestion(text) {
@@ -143,22 +163,20 @@
     handleSend();
   }
 
-  function respond(msg) {
-    let response = "Désolé, je n’ai pas compris. Essaie une autre question 😊";
+  function respond(message) {
+    let response = "Je n’ai pas compris 🤔 Essaie une autre question.";
 
-    if (msg.includes("qui est")) {
-      response = "OscarSoundz est un artiste et développeur passionné par la musique 🎧.";
-      } else if (msg.includes("écouter") || msg.includes("musique")) {
-      response = "Tu peux écouter mes sons sur YouTube, Spotify et Audiomack 🎵.";
-    } else if (msg.includes("style") || msg.includes("genre")) {
-      response = "Je fais du rap, de la lo-fi, de l’afro et des vibes expérimentales ✨.";
-    } else if (msg.includes("contacter")) {
-      response = "Tu peux me contacter sur Instagram @oscarsoundz ou par mail à oscarsoundz@gmail.com.";
-    } else if (msg.includes("objectif")) {
-      response = "Mon objectif est d’inspirer à travers la musique et partager ma foi chrétienne 🙏🏽.";
+    if (message.includes("qui")) {
+      response = "OscarSoundz est un artiste, beatmaker et développeur passionné 💻🎶.";
+    } else if (message.includes("écouter") || message.includes("musique")) {
+      response = "Retrouve mes sons sur YouTube, Audiomack, et Spotify 🎧.";
+    } else if (message.includes("style") || message.includes("genre")) {
+      response = "Je fais du rap, lo-fi, afrobeat et des prods inspirées ✨.";
+    } else if (message.includes("contact")) {
+      response = "Contacte-moi via Instagram @oscarsoundz ou mail oscarsoundz@gmail.com 📩.";
     }
 
-    setTimeout(() => addMessage('bot', response), 500);
+    setTimeout(() => addMessage("bot", response), 500);
   }
 </script>
 
