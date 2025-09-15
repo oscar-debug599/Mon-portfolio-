@@ -122,7 +122,7 @@
 <div class="chat-container">
   <div class="chat-header">Oscar Bot💬</div>
   <div class="chat-body" id="chat">
-    <div class="message bot">Salut ! Je suis là juste pour te donner des infos basiques sur Jérémie Oscar🔥. Si tu veux plus de précisions, tu peux directement chater avec lui ou son assistant personnalisé en cliquant sur le widget bleu qui est juste en haut à gauche de ton écran.</div>
+    <div class="message bot">Salut ! Je suis là juste pour te donner des infos basiques sur Jérémie Oscar🔥. Si tu veux plus de précisions, tu peux directement chater avec lui ou son assistant personnalisé en cliquant sur le widget bleu qui s'affiche en haut à gauche de ton écran.</div>
   </div>
 
   <div class="suggestions">
@@ -130,6 +130,8 @@
     <button onclick="sendSuggestion('Où écouter ta musique ?')">Où écouter ta musique ?</button>
     <button onclick="sendSuggestion('Quels styles tu fais ?')">Styles musicaux ?</button>
     <button onclick="sendSuggestion('Comment te contacter ?')">Contact ?</button>
+    <button onclick="sendSuggestion('Je veux une collaboration !')" >Je veux une collaboration !</button>
+    <button onclick="SendSuggestion('Je veux une prod personnalisée !')" >Je veux une prod !</button>
   </div>
 
   <div class="chat-footer">
@@ -164,11 +166,11 @@
   }
 
   function respond(message) {
-    let response = "Je n’ai pas compris 🤔 Essaie une autre question ou discute directement avec son assistant plus personnalisé.";
+    let response = "Je n’ai pas compris 🤔 Essaie une autre question ou discute directement avec son assistant plus personnalisé(Clique sur 💬le widget bleu en haut à gauche de ton écran).";
 
     if (message.includes("qui")) {
       response = "Jérémie Oscar ou OscarSoundz(son nom d'artiste) est un artiste musicien, beatmaker et informaticien passionné 💻🎶.";
-    } else if (message.includes("écouter") || message.includes("musique") || message.includes("prod") || message.includes("beats") || message.includes("instrumental") || message.includes ("prods")){
+    } else if (message.includes("écouter") || message.includes("musique") || message.includes("prods") || message.includes("beats") || message.includes("instrumental") || message.includes ("prods")){
       response = "Retrouve mes sons sur YouTube, et sur mon site (vous y êtes déjà😊)🎧. Pour les autres informations, tu peux me contacter personnellement.";
     } else if (message.includes("style") || message.includes("genre")) {
       response = "Je fais du hip-hop, R&B, afrobeat, afro rumba et des prods inspirées ✨.";
@@ -176,6 +178,10 @@
       response = "Contacte-moi via Instagram ou Facebook📩. Les liens sont sur la page principale.";
     } else if (message.includes("église") || message.includes("pries") || message.includes("prie")) {
       response = "Je prie et sers Dieu à la Maison de Miséricorde.";
+    } else if (message.includes("d'accord") || message.includes("okay") || message.includes("OK")) {
+      response = "Merci pour ta compréhension !😊";
+    } else if (message.includes("collaboration")) || message.includes("prod")) {
+      response = "Si tu veux travailler avec Jérémie ou juste avoir une prod personnalisée, laisse-le un message sur son chatbot personnalisé(clique juste sur le widget💬 bleu qui est en haut à gauche de ton écran). Ou tu peux rentrer à la page principale pour le contacter via Facebook ou Instagram. De la page principale, tu peux aussi écouter ses prods.";
    } 
 
     setTimeout(() => addMessage("bot", response), 500);
